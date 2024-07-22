@@ -1,0 +1,11 @@
+
+<odoo>
+    <data noupdate="1">
+        <record id="module_restrict_creation" model="holdco.module.management">
+            <field name="name">restrict_creation</field>
+        </record>
+        <record id="module_account_move_modification" model="holdco.module.management">
+            <field name="name">account_move_modification</field>
+        </record>
+    </data>
+</odoo>

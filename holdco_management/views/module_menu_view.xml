@@ -1,0 +1,53 @@
+
+<odoo>
+    <data>
+        <!-- Main menu item -->
+        <menuitem id="menu_holdco_config" name="Holdco Configuration" sequence="10"/>
+
+        <!-- Submenu for module management -->
+        <menuitem id="menu_module_management" name="Module Management" parent="menu_holdco_config" sequence="10"/>
+
+        <!-- Action to open the list view of modules -->
+        <record id="action_module_management" model="ir.actions.act_window">
+            <field name="name">Module Management</field>
+            <field name="res_model">holdco.module.management</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Attach the action to the menu item -->
+        <menuitem id="menu_module_management_action" parent="menu_module_management" action="action_module_management"/>
+
+        <!-- View definition for the module management -->
+        <record id="view_module_management_tree" model="ir.ui.view">
+            <field name="name">holdco.module.management.tree</field>
+            <field name="model">holdco.module.management</field>
+            <field name="arch" type="xml">
+                <tree string="Module Management">
+                    <field name="name"/>
+                    <field name="version"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_module_management_form" model="ir.ui.view">
+            <field name="name">holdco.module.management.form</field>
+            <field name="model">holdco.module.management</field>
+            <field name="arch" type="xml">
+                <form string="Module Management">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="version"/>
+                            <field name="state"/>
+                        </group>
+                        <footer>
+                            <button name="install_module" string="Install" type="object" class="oe_highlight" attrs="{'invisible': [('state', '=', 'installed')]}"/>
+                            <button name="uninstall_module" string="Uninstall" type="object" attrs="{'invisible': [('state', '=', 'not_installed')]}"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
