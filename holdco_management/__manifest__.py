@@ -3,8 +3,8 @@
     'name': 'Holdco Management',
     'version': '1.0',
     'summary': 'Module to manage the installation of complementary modules',
-    'author': 'Diego Gajardo',
-    'website': 'https://www.dgdev.cl',
+    'author': 'I+D, Diego Gajardo, Camilo Neira, Diego Morales',
+    'website': 'https://www.holdconet.com',
     'category': 'Tools',
     'depends': ['base'],
     'data': [
