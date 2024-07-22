@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <!-- Main menu item -->
-        <menuitem id="menu_holdco_config" name="Holdco Configuration" sequence="10"/>
+        <menuitem id="menu_holdco_config" name="Holdco Configuration" sequence="10" parent="base.menu_administration"/>
 
         <!-- Submenu for module management -->
         <menuitem id="menu_module_management" name="Module Management" parent="menu_holdco_config" sequence="10"/>
