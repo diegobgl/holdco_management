@@ -25,6 +25,7 @@
                     <field name="name"/>
                     <field name="version"/>
                     <field name="state"/>
+                    <field name="install"/>
                 </tree>
             </field>
         </record>
@@ -39,13 +40,8 @@
                             <field name="name"/>
                             <field name="version"/>
                             <field name="state"/>
+                            <field name="install"/>
                         </group>
-                        <footer>
-                            <button name="install_module" string="Install" type="object" class="oe_highlight" 
-                                    attrs="{'invisible': [('state', '=', 'installed')]}"/>
-                            <button name="uninstall_module" string="Uninstall" type="object" 
-                                    attrs="{'invisible': [('state', '=', 'not_installed')]}"/>
-                        </footer>
                     </sheet>
                 </form>
             </field>

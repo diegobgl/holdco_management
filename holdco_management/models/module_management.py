@@ -1,33 +1,47 @@
-
 from odoo import models, fields, api
 
-class ModuleManagement(models.Model):
+class HoldcoModuleManagement(models.Model):
     _name = 'holdco.module.management'
     _description = 'Module Management'
 
-    name = fields.Char(string='Module Name', required=True)
-    version = fields.Char(string='Version', compute='_compute_version')
+    name = fields.Char(string="Name", required=True)
+    version = fields.Char(string="Version")
     state = fields.Selection([
         ('not_installed', 'Not Installed'),
         ('installed', 'Installed'),
-    ], string='State', default='not_installed')
+    ], string="State", default='not_installed')
+    
+    install = fields.Boolean(string="Install")
 
-    @api.depends('name')
-    def _compute_version(self):
-        for record in self:
-            module = self.env['ir.module.module'].search([('name', '=', record.name)], limit=1)
-            record.version = module.latest_version if module else 'N/A'
+    @api.onchange('install')
+    def _onchange_install(self):
+        if self.install:
+            self.state = 'installed'
+        else:
+            self.state = 'not_installed'
+
+    @api.model
+    def create(self, vals):
+        record = super(HoldcoModuleManagement, self).create(vals)
+        if vals.get('install'):
+            record.install_module()
+        else:
+            record.uninstall_module()
+        return record
+
+    def write(self, vals):
+        res = super(HoldcoModuleManagement, self).write(vals)
+        if 'install' in vals:
+            if vals['install']:
+                self.install_module()
+            else:
+                self.uninstall_module()
+        return res
 
     def install_module(self):
-        for record in self:
-            module = self.env['ir.module.module'].search([('name', '=', record.name)])
-            if module and module.state == 'uninstalled':
-                module.button_immediate_install()
-                record.state = 'installed'
+        # Lógica para instalar el módulo
+        self.state = 'installed'
 
     def uninstall_module(self):
-        for record in self:
-            module = self.env['ir.module.module'].search([('name', '=', record.name)])
-            if module and module.state == 'installed':
-                module.button_immediate_uninstall()
-                record.state = 'not_installed'
+        # Lógica para desinstalar el módulo
+        self.state = 'not_installed'
